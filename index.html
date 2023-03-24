@@ -15,7 +15,10 @@
     </div>
 
     <div id="center">
-      
+      <?php
+        $output = shell_exec('python pythontest.py');
+        echo $output;
+      ?>
     </div>
 
     <div id="right">
