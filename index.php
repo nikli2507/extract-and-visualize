@@ -18,7 +18,7 @@
 
         <div id="center">
             <?php
-                $output = shell_exec('python pythontest.py');
+                $output = shell_exec('python main.py');
                 echo $output;
             ?>
         </div>
