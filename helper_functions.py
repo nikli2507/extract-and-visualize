@@ -27,3 +27,8 @@ def find_key_value_pairs(json: json, key: any, value: any) -> list:
     
     search_json_object(json, key, value)
     return result
+
+def print_size_17_content(json_list: list):
+    with open("content.json", "w") as content:
+        for json_obj in json_list:
+            content.write(str(find_key_value_pairs(json_obj, 'size', 17.0)))

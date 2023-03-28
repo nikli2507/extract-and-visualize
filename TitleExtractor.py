@@ -30,3 +30,4 @@ class TitleExtractor():
             courses.append(current_name)              # append last title
 
         return courses
+    

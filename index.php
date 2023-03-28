@@ -18,8 +18,8 @@
 
         <div id="center">
             <?php
-                $output = shell_exec('python main.py');
-                echo $output;
+                #$output = shell_exec('python main.py');
+                echo "test";
             ?>
         </div>
 
