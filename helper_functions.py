@@ -28,6 +28,19 @@ def find_key_value_pairs(json: json, key: any, value: any) -> list:
     search_json_object(json, key, value)
     return result
 
+def post_process(courses: list) -> list:
+
+    # flatten list
+    flat_list = [course for sublist in courses for course in sublist]
+
+    courses = []
+    
+    # remove leading/following whitespaces and double whitespaces 
+    for title in flat_list:
+        courses.append(" ".join(title.split()).strip())
+
+    return courses
+
 def print_size_17_content(json_list: list):
     with open("content.json", "w") as content:
         for json_obj in json_list:

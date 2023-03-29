@@ -3,25 +3,22 @@ from CoursesDatabase import *
 from helper_functions import *
 import fitz
 
+# courses start at page 10 and end at page 128
+COURSE_LISTING_BEGIN_PAGE = 9
+COURSE_LISTING_END_PAGE = 127
+
 # convert document to json
 doc = fitz.open("courses.pdf")
 
-doc_dict = []
-
-for i in range(0, doc.page_count):
-    doc_dict.append(doc[i].get_text("dict"))
+courses = []
+title_extractor = TitleExtractor()
 
 # extract titles from pdf
-title_extractor = TitleExtractor()
-courses = title_extractor.extract(doc_dict)
-print_size_17_content(doc_dict)
+for i in range(COURSE_LISTING_BEGIN_PAGE, COURSE_LISTING_END_PAGE):              
+    courses.append(title_extractor.extract(doc[i].get_text("dict"))) 
 
-# remove leading whitespaces and double whitespaces
-helper_list = []
-for title in courses:   
-    helper_list.append(" ".join(title.split()).strip())
-
-courses = helper_list
+# flatten list and remove leading/following whitespaces and double whitespaces
+courses = post_process(courses)
 
 doc.close() 
 

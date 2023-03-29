@@ -3,6 +3,8 @@ from helper_functions import find_key_value_pairs
 
 class TitleExtractor():
 
+    MAX_ORIGIN_Y_DIFFERENCE = 50
+
     def __init__(self):
         pass
 
@@ -17,10 +19,10 @@ class TitleExtractor():
         if result != []:
             current_name = result[0]["text"]
             current_origin_y = result[0]["origin"][1]
-            for i in range(1, len(result)-1):
+            for i in range(1, len(result)):
                 # some titles are spread over several lines, check if the next element is still the same title 
-                if abs(current_origin_y - result[i]["origin"][1]) < 20:   # still the same title
-                    current_name = current_name + result[i]["text"]
+                if abs(current_origin_y - result[i]["origin"][1]) < self.MAX_ORIGIN_Y_DIFFERENCE:   # still the same title
+                    current_name = current_name + " " + result[i]["text"]
                     current_origin_y = result[i]["origin"][1]
                 else:                                                     # new title
                     courses.append(current_name)                          # append previous title
