@@ -31,6 +31,5 @@ for title in courses:
     "title" : title,
     })
 
-for item in database.query_all_dicts():
-    print(item)
+
 
