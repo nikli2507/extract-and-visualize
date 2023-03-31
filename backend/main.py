@@ -8,7 +8,7 @@ COURSE_LISTING_BEGIN_PAGE = 9
 COURSE_LISTING_END_PAGE = 127
 
 # convert document to json
-doc = fitz.open("courses.pdf")
+doc = fitz.open("../courses.pdf")
 
 courses = []
 title_extractor = TitleExtractor()
