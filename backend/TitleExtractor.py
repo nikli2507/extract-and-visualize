@@ -1,5 +1,6 @@
 import json
 from helper_functions import find_key_value_pairs
+from helper_functions import remove_whitespaces
 
 class TitleExtractor():
 
@@ -13,7 +14,7 @@ class TitleExtractor():
         # every title has size 17
         result = find_key_value_pairs(json_obj, 'size', 17.0)
 
-        courses = []
+        titles = []
 
         # go through every size 17 element and build together the course titles
         if result != []:
@@ -25,11 +26,13 @@ class TitleExtractor():
                     current_name = current_name + " " + result[i]["text"]
                     current_origin_y = result[i]["origin"][1]
                 else:                                                     # new title
-                    courses.append(current_name)                          # append previous title
+                    titles.append(current_name)                          # append previous title
                     current_name = result[i]["text"]
                     current_origin_y = result[i]["origin"][1]
  
-            courses.append(current_name)              # append last title
+            titles.append(current_name)              # append last title
 
-        return courses
+        titles = remove_whitespaces(titles)
+
+        return titles
     

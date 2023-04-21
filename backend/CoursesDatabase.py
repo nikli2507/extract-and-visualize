@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-class CoursesDatabase():
+class  CoursesDatabase():
 
     def __init__(self):
         self.__client = MongoClient("mongodb+srv://admin:nrFwOGC8T62BeKfC@cluster0.qmlllmt.mongodb.net/?retryWrites=true&w=majority")
@@ -10,7 +10,7 @@ class CoursesDatabase():
     def write(self, content: dict):
         self.__courses_collection.insert_one(content)
 
-    def query_all_dicts(self) -> list:
+    def query_all_courses(self) -> list:
         return self.__courses_collection.find()
     
     def clean(self):

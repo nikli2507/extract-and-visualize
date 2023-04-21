@@ -3,7 +3,7 @@ from CoursesDatabase import *
 
 app = Flask(__name__)
 database = CoursesDatabase()
-courses_query = list(database.query_all_dicts())
+courses_query = list(database.query_all_courses())
 courses = [json_obj["title"] for json_obj in courses_query]
 
 @app.route('/hello', methods=['GET'])
@@ -11,7 +11,7 @@ def hello():
     return 'Hello, World!'
 
 @app.route('/courses', methods=['GET'])
-def getCourses():
+def get_courses():
     return courses
 
 if __name__ == '__main__':
