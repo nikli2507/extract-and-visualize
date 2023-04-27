@@ -1,9 +1,9 @@
 class Course():
 
     def __init__(self, title: str, description: str, target_group: str, content: list,
-                  prerequisites: list, dates_location: list, time: str, cost: int,
+                  prerequisites: list, dates_location: list, time: str, cost: str,
                   trainer: list, additional_info: str, what_to_bring:str, category: str, 
-                  min_age: int):
+                  min_age: int, duration: str):
         self.title = title
         self.description = description
         self.target_group = target_group
@@ -17,5 +17,6 @@ class Course():
         self.what_to_bring = what_to_bring
         self.category = category
         self.min_age = min_age
+        self.duration = duration
 
     

@@ -24,6 +24,7 @@ for course in courses:
         'additional_info': course.additional_info,
         'what_to_bring': course.what_to_bring,
         'category': course.category,
-        'min_age': course.min_age
+        'min_age': course.min_age,
+        'duration': course.duration
     })
 
