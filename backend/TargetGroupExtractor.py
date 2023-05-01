@@ -10,7 +10,7 @@ class TargetGroupExtractor():
 
         target_groups =  get_text_from_keyword(json_obj, "Zielgruppe")        
 
-        if len(target_groups) != n_courses_on_page:
+        while len(target_groups) < n_courses_on_page:
             target_groups.insert(0, "")
 
         return target_groups

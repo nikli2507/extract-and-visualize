@@ -8,9 +8,9 @@ class PrerequisiteExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Voraussetzung")        
+        prerequisites = get_text_from_keyword(json_obj, "Voraussetzung")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        while len(prerequisites) < n_courses_on_page:
+            prerequisites.insert(0, "")
 
-        return target_groups
+        return prerequisites

@@ -8,9 +8,9 @@ class TimeExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Uhrzeit")        
+        time = get_text_from_keyword(json_obj, "Uhrzeit")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        while len(time) < n_courses_on_page:
+            time.insert(0, "")
 
-        return target_groups
+        return time

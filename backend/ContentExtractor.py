@@ -8,9 +8,10 @@ class ContentExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Inhalte")        
+        contents = get_text_from_keyword(json_obj, "Inhalte")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        # TODO: more than one content on page 48
+        while len(contents) < n_courses_on_page:
+            contents.insert(0, "")
 
-        return target_groups
+        return contents

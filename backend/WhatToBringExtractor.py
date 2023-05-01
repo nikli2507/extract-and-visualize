@@ -8,9 +8,9 @@ class WhatToBringExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Mitzubringen")        
+        what_to_bring = get_text_from_keyword(json_obj, "Mitzubringen")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        while len(what_to_bring) < n_courses_on_page:
+            what_to_bring.insert(0, "")
 
-        return target_groups
+        return what_to_bring

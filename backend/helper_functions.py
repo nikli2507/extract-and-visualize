@@ -59,11 +59,13 @@ def get_text_from_keyword(page: json, keyword: str):
     result = []
 
     for block in blocks:
-        if keyword in block["lines"][0]["spans"][0]["text"]:
+        if keyword.lower() in block["lines"][0]["spans"][0]["text"].lower():
             subresult = []
+            for span_i in range(1, len(block["lines"][0]["spans"])):
+                subresult.append(block["lines"][0]["spans"][span_i]["text"])
             for line_i in range(1, len(block["lines"])):
                 subresult.append(block["lines"][line_i]["spans"][0]["text"])
-            result.append("".join(subresult))
+            result.append("\\n".join(subresult))
 
     result = remove_whitespaces(result)
 

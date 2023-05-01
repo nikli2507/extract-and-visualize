@@ -8,9 +8,10 @@ class AdditionalInformationExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Zusatzinformation")        
+        additional_info = get_text_from_keyword(json_obj, "Zusatzinformation")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        # TODO: more than one additional info on page 18
+        while len(additional_info) < n_courses_on_page:
+            additional_info.insert(0, "")
 
-        return target_groups
+        return additional_info

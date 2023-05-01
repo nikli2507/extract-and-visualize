@@ -8,9 +8,9 @@ class DurationExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Dauer")        
+        durations = get_text_from_keyword(json_obj, "Dauer")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        while len(durations) < n_courses_on_page:
+            durations.insert(0, "")
 
-        return target_groups
+        return durations

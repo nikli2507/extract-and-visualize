@@ -8,9 +8,10 @@ class DatesLocationExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Termine")        
+        dates_locations = get_text_from_keyword(json_obj, "Termine")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        # TODO: more dates and locations than courses
+        while len(dates_locations) < n_courses_on_page:
+            dates_locations.insert(0, "")
 
-        return target_groups
+        return dates_locations

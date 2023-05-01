@@ -8,9 +8,10 @@ class CostExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Seminarbeitrag")        
+        costs = get_text_from_keyword(json_obj, "Seminarbeitrag")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        # TODO: more than one cost on page 84
+        while len(costs) < n_courses_on_page:
+            costs.insert(0, "")
 
-        return target_groups
+        return costs

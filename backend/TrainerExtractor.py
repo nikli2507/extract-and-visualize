@@ -8,9 +8,9 @@ class TrainerExtractor():
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> list:
 
-        target_groups = get_text_from_keyword(json_obj, "Trainer")        
+        trainers = get_text_from_keyword(json_obj, "Trainer")        
 
-        if len(target_groups) != n_courses_on_page:
-            target_groups.insert(0, "")
+        while len(trainers) < n_courses_on_page:
+            trainers.insert(0, "")
 
-        return target_groups
+        return trainers
