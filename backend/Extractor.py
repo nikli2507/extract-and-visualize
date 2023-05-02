@@ -39,17 +39,17 @@ class Extractor():
         additional_info_extractor = AdditionalInformationExtractor()
         description_extractor = DescriptionExtractor()
 
-        for i in range(0, self.doc.page_count-1):           
+        for i in [9, 10]:#range(0, self.doc.page_count-1):           
             page = self.doc[i].get_text("dict")
             try:
                 titles, title_coords = title_extractor.extract(page) 
                 n_courses_on_page = len(titles)
-                categories = category_extractor.extract(page, n_courses_on_page)  
+                categories, category_ys = category_extractor.extract(page, n_courses_on_page)  
                 target_groups = target_group_extractor.extract(page, n_courses_on_page)
                 contents = content_extractor.extract(page, n_courses_on_page)
                 prerequisites = prerequisite_extractor.extract(page, n_courses_on_page)
                 trainers = trainer_extractor.extract(page, n_courses_on_page)
-                dates_locations = dates_location_extractor.extract(page, n_courses_on_page)
+                dates_locations = dates_location_extractor.extract(page, n_courses_on_page, category_ys)
                 durations = duration_extractor.extract(page, n_courses_on_page)
                 costs = cost_extractor.extract(page, n_courses_on_page)
                 what_to_bring = what_to_bring_extractor.extract(page, n_courses_on_page)

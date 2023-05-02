@@ -35,7 +35,7 @@ def remove_whitespaces(str_list: list) -> list:
 
     # remove leading/following whitespaces and double whitespaces 
     for str in str_list:
-        edited_str_list.append(" ".join(str.split()).strip())
+        edited_str_list.append(" ".join(str.split()).strip().lstrip("\\n"))
 
     return edited_str_list
 
@@ -61,10 +61,10 @@ def get_text_from_keyword(page: json, keyword: str):
     for block in blocks:
         if keyword.lower() in block["lines"][0]["spans"][0]["text"].lower():
             subresult = []
-            for span_i in range(1, len(block["lines"][0]["spans"])):
-                subresult.append(block["lines"][0]["spans"][span_i]["text"])
-            for line_i in range(1, len(block["lines"])):
-                subresult.append(block["lines"][line_i]["spans"][0]["text"])
+            for line in block["lines"]:
+                for span in line["spans"]:
+                    if keyword.lower() not in span["text"].lower():
+                        subresult.append(span["text"])
             result.append("\\n".join(subresult))
 
     result = remove_whitespaces(result)
