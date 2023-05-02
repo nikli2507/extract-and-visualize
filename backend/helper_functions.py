@@ -53,10 +53,11 @@ def save_page_as_file(page_n: int):
     dict = doc[page_n].get_text("dict")
     save_dict_as_file(dict, page_n)
 
-def get_text_from_keyword(page: json, keyword: str):
+def get_text_from_keyword(page: json, keyword: str) -> tuple:
     
     blocks = page["blocks"]
     result = []
+    y_list = []
 
     for block in blocks:
         if keyword.lower() in block["lines"][0]["spans"][0]["text"].lower():
@@ -66,7 +67,24 @@ def get_text_from_keyword(page: json, keyword: str):
                     if keyword.lower() not in span["text"].lower():
                         subresult.append(span["text"])
             result.append("\\n".join(subresult))
+            y_list.append(block["bbox"][1])
 
     result = remove_whitespaces(result)
 
-    return result
+    return result, y_list
+
+def sort_and_fill(spans: list, n_courses_on_page: int, y_list: list) -> list:
+    
+    if n_courses_on_page == 2 and len(spans) == 1:
+        if y_list[0] < 450:
+            spans.insert(0, "")
+        else:
+            spans.append("")
+    elif n_courses_on_page == 2 and len(spans) == 2:
+        if y_list[0] < y_list[1]:
+            spans = spans[::-1]
+    elif len(spans) == 0:
+        while len(spans) != n_courses_on_page:
+            spans.append("")
+
+    return spans

@@ -2,17 +2,8 @@ import fitz
 from Course import Course
 from TitleExtractor import TitleExtractor
 from CategoryExtractor import CategoryExtractor
-from TargetGroupExtractor import TargetGroupExtractor
-from ContentExtractor import ContentExtractor
-from PrerequisiteExtractor import PrerequisiteExtractor
-from TrainerExtractor import TrainerExtractor
 from DatesLocationExtractor import DatesLocationExtractor
-from DurationExtractor import DurationExtractor
-from CostExtractor import CostExtractor
-from WhatToBringExtractor import WhatToBringExtractor
-from MinAgeExtractor import MinAgeExtractor
-from TimeExtractor import TimeExtractor
-from AdditionalInformationExtractor import AdditionalInformationExtractor
+from GenericExtractor import GenericExtractor
 from DescriptionExtractor import DescriptionExtractor
 from helper_functions import save_dict_as_file
 
@@ -26,18 +17,9 @@ class Extractor():
         courses: Course = []
         title_extractor = TitleExtractor()
         category_extractor = CategoryExtractor()
-        target_group_extractor = TargetGroupExtractor()
-        content_extractor = ContentExtractor()
-        prerequisite_extractor = PrerequisiteExtractor()
-        trainer_extractor = TrainerExtractor()
         dates_location_extractor = DatesLocationExtractor()
-        duration_extractor = DurationExtractor()
-        cost_extractor = CostExtractor()
-        what_to_bring_extractor = WhatToBringExtractor()
-        min_age_extractor = MinAgeExtractor()
-        time_extractor = TimeExtractor()
-        additional_info_extractor = AdditionalInformationExtractor()
         description_extractor = DescriptionExtractor()
+        generic_extractor = GenericExtractor()
 
         for i in [9, 10]:#range(0, self.doc.page_count-1):           
             page = self.doc[i].get_text("dict")
@@ -45,18 +27,19 @@ class Extractor():
                 titles, title_coords = title_extractor.extract(page) 
                 n_courses_on_page = len(titles)
                 categories, category_ys = category_extractor.extract(page, n_courses_on_page)  
-                target_groups = target_group_extractor.extract(page, n_courses_on_page)
-                contents = content_extractor.extract(page, n_courses_on_page)
-                prerequisites = prerequisite_extractor.extract(page, n_courses_on_page)
-                trainers = trainer_extractor.extract(page, n_courses_on_page)
                 dates_locations = dates_location_extractor.extract(page, n_courses_on_page, category_ys)
-                durations = duration_extractor.extract(page, n_courses_on_page)
-                costs = cost_extractor.extract(page, n_courses_on_page)
-                what_to_bring = what_to_bring_extractor.extract(page, n_courses_on_page)
-                min_ages = min_age_extractor.extract(page, n_courses_on_page)
-                times = time_extractor.extract(page, n_courses_on_page)
-                additional_infos = additional_info_extractor.extract(page, n_courses_on_page)
                 descriptions = description_extractor.extract(page, n_courses_on_page, title_coords)
+                
+                target_groups = generic_extractor.extract(page, n_courses_on_page, "Zielgruppe")
+                contents = generic_extractor.extract(page, n_courses_on_page, "Inhalt")
+                prerequisites = generic_extractor.extract(page, n_courses_on_page, "Vorraussetzung")
+                trainers = generic_extractor.extract(page, n_courses_on_page, "Trainer")
+                durations = generic_extractor.extract(page, n_courses_on_page, "Dauer")
+                costs = generic_extractor.extract(page, n_courses_on_page, "Seminarbeitrag")
+                what_to_bring = generic_extractor.extract(page, n_courses_on_page, "Mitzubringen")
+                min_ages = generic_extractor.extract(page, n_courses_on_page, "Mindestalter")
+                times = generic_extractor.extract(page, n_courses_on_page, "Uhrzeit")
+                additional_infos = generic_extractor.extract(page, n_courses_on_page, "Zusatzinformation")
 
                 if titles == [] or categories == []:
                     raise ValueError()
@@ -70,6 +53,20 @@ class Extractor():
             except:
                 if not (i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 28, 29, 30, 43, 44, 45, 46, 56, 57, 63, 64, 65, 72, 73, 74, 85, 86, 87, 94, 95, 98, 99, 108, 109, 113, 114, 115, 117, 120, 121, 124, 125, 128, 129, 130, 131]):
                     print(f"Could not extract any course on page {i}!")
+                    print(f"Titles: {titles}")
+                    print(f"Descriptions: {descriptions}")
+                    print(f"Target Groups: {target_groups}")
+                    print(f"Contents: {contents}")
+                    print(f"Prerequisites: {prerequisites}")
+                    print(f"Dates and Locations: {dates_locations}")
+                    print(f"Times: {times}")
+                    print(f"Costs: {costs}")
+                    print(f"Trainers: {trainers}")
+                    print(f"Additional Infos: {additional_infos}")
+                    print(f"What to Bring: {what_to_bring}")
+                    print(f"Categories: {categories}")
+                    print(f"Minimum Ages: {min_ages}")
+                    print(f"Durations: {durations}")
 
         return courses
     
