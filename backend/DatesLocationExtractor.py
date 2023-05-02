@@ -1,6 +1,5 @@
 import json
 import sys
-from helper_functions import get_text_from_keyword
 
 class DatesLocationExtractor():
 

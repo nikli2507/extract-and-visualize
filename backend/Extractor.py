@@ -5,7 +5,6 @@ from CategoryExtractor import CategoryExtractor
 from DatesLocationExtractor import DatesLocationExtractor
 from GenericExtractor import GenericExtractor
 from DescriptionExtractor import DescriptionExtractor
-from helper_functions import save_dict_as_file
 
 class Extractor():
     
@@ -22,7 +21,7 @@ class Extractor():
         generic_extractor = GenericExtractor()
 
         # extract data from every single page
-        for i in [10]:#range(0, self.doc.page_count-1):           
+        for i in range(0, self.doc.page_count-1):           
             page = self.doc[i].get_text("dict")
             try:
                 titles, title_coords = title_extractor.extract(page) 
@@ -42,20 +41,20 @@ class Extractor():
                 times = generic_extractor.extract(page, n_courses_on_page, "Uhrzeit")
                 additional_infos = generic_extractor.extract(page, n_courses_on_page, "Zusatzinformation")
 
-                print(f"Titles: {titles}")
-                print(f"Descriptions: {descriptions}")
-                print(f"Target Groups: {target_groups}")
-                print(f"Contents: {contents}")
-                print(f"Prerequisites: {prerequisites}")
-                print(f"Dates and Locations: {dates_locations}")
-                print(f"Times: {times}")
-                print(f"Costs: {costs}")
-                print(f"Trainers: {trainers}")
-                print(f"Additional Infos: {additional_infos}")
-                print(f"What to Bring: {what_to_bring}")
-                print(f"Categories: {categories}")
-                print(f"Minimum Ages: {min_ages}")
-                print(f"Durations: {durations}")
+                # print(f"Titles: {titles}")
+                # print(f"Descriptions: {descriptions}")
+                # print(f"Target Groups: {target_groups}")
+                # print(f"Contents: {contents}")
+                # print(f"Prerequisites: {prerequisites}")
+                # print(f"Dates and Locations: {dates_locations}")
+                # print(f"Times: {times}")
+                # print(f"Costs: {costs}")
+                # print(f"Trainers: {trainers}")
+                # print(f"Additional Infos: {additional_infos}")
+                # print(f"What to Bring: {what_to_bring}")
+                # print(f"Categories: {categories}")
+                # print(f"Minimum Ages: {min_ages}")
+                # print(f"Durations: {durations}")
 
                 if titles == [] or categories == []:
                     raise ValueError()
@@ -69,20 +68,6 @@ class Extractor():
             except:
                 if not (i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 28, 29, 30, 43, 44, 45, 46, 56, 57, 63, 64, 65, 72, 73, 74, 85, 86, 87, 94, 95, 98, 99, 108, 109, 113, 114, 115, 117, 120, 121, 124, 125, 128, 129, 130, 131]):
                     print(f"Could not extract any course on page {i}!")
-                    print(f"Titles: {titles}")
-                    print(f"Descriptions: {descriptions}")
-                    print(f"Target Groups: {target_groups}")
-                    print(f"Contents: {contents}")
-                    print(f"Prerequisites: {prerequisites}")
-                    print(f"Dates and Locations: {dates_locations}")
-                    print(f"Times: {times}")
-                    print(f"Costs: {costs}")
-                    print(f"Trainers: {trainers}")
-                    print(f"Additional Infos: {additional_infos}")
-                    print(f"What to Bring: {what_to_bring}")
-                    print(f"Categories: {categories}")
-                    print(f"Minimum Ages: {min_ages}")
-                    print(f"Durations: {durations}")
 
         return courses
     

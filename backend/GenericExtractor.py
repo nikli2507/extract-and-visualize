@@ -41,10 +41,9 @@ class GenericExtractor():
                 result.append("")
             else:
                 result.insert(0, "")
-        # TODO: not sure if i need the code below
-        # elif n_courses_on_page == 2 and len(result) == 2:
-        #     if y_list[0] < y_list[1]:
-        #         result = result[::-1]
+        elif n_courses_on_page == 2 and len(result) == 2:
+            if y_list[0] > y_list[1]:
+                result = result[::-1]
         elif len(result) == 0:
             while len(result) != n_courses_on_page:
                 result.append("")

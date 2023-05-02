@@ -26,9 +26,9 @@ class DescriptionExtractor():
         for title_x, title_y in title_coords:
             description = ""
             # get all texts in the json objects
-            for block in json_obj['blocks']:
-                block_x = block['bbox'][0]
-                block_y = block['bbox'][1]
+            for block in json_obj["blocks"]:
+                block_x = block["lines"][0]["spans"][0]["origin"][0]  # there is one case where the bbox x coordinate is wrong -> take span origin
+                block_y = block["bbox"][1]
                 text = block["lines"][0]["spans"][0]["text"].lower()
                 # check if current block is on the same x and below the title, but not further than MAX_Y_DIFFERENCE 
                 # (relevant for more courses on one page) and check if text is really a description with the keywords
