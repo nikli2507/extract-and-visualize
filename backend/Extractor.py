@@ -21,18 +21,19 @@ class Extractor():
         description_extractor = DescriptionExtractor()
         generic_extractor = GenericExtractor()
 
-        for i in [9, 10]:#range(0, self.doc.page_count-1):           
+        # extract data from every single page
+        for i in [10]:#range(0, self.doc.page_count-1):           
             page = self.doc[i].get_text("dict")
             try:
                 titles, title_coords = title_extractor.extract(page) 
                 n_courses_on_page = len(titles)
                 categories, category_ys = category_extractor.extract(page, n_courses_on_page)  
                 dates_locations = dates_location_extractor.extract(page, n_courses_on_page, category_ys)
-                descriptions = description_extractor.extract(page, n_courses_on_page, title_coords)
+                descriptions = description_extractor.extract(page, title_coords)
                 
                 target_groups = generic_extractor.extract(page, n_courses_on_page, "Zielgruppe")
                 contents = generic_extractor.extract(page, n_courses_on_page, "Inhalt")
-                prerequisites = generic_extractor.extract(page, n_courses_on_page, "Vorraussetzung")
+                prerequisites = generic_extractor.extract(page, n_courses_on_page, "Voraussetzung")
                 trainers = generic_extractor.extract(page, n_courses_on_page, "Trainer")
                 durations = generic_extractor.extract(page, n_courses_on_page, "Dauer")
                 costs = generic_extractor.extract(page, n_courses_on_page, "Seminarbeitrag")
@@ -40,6 +41,21 @@ class Extractor():
                 min_ages = generic_extractor.extract(page, n_courses_on_page, "Mindestalter")
                 times = generic_extractor.extract(page, n_courses_on_page, "Uhrzeit")
                 additional_infos = generic_extractor.extract(page, n_courses_on_page, "Zusatzinformation")
+
+                print(f"Titles: {titles}")
+                print(f"Descriptions: {descriptions}")
+                print(f"Target Groups: {target_groups}")
+                print(f"Contents: {contents}")
+                print(f"Prerequisites: {prerequisites}")
+                print(f"Dates and Locations: {dates_locations}")
+                print(f"Times: {times}")
+                print(f"Costs: {costs}")
+                print(f"Trainers: {trainers}")
+                print(f"Additional Infos: {additional_infos}")
+                print(f"What to Bring: {what_to_bring}")
+                print(f"Categories: {categories}")
+                print(f"Minimum Ages: {min_ages}")
+                print(f"Durations: {durations}")
 
                 if titles == [] or categories == []:
                     raise ValueError()

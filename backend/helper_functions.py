@@ -27,6 +27,9 @@ def find_key_value_pairs(json: json, key: any, value: any) -> list:
                     search_json_object(item, key, value)
     
     search_json_object(json, key, value)
+
+    result = sorted(result, key=lambda x: x["bbox"][1])
+
     return result
 
 def remove_whitespaces(str_list: list) -> list:
@@ -52,39 +55,3 @@ def save_page_as_file(page_n: int):
     doc = fitz.open("courses.pdf")
     dict = doc[page_n].get_text("dict")
     save_dict_as_file(dict, page_n)
-
-def get_text_from_keyword(page: json, keyword: str) -> tuple:
-    
-    blocks = page["blocks"]
-    result = []
-    y_list = []
-
-    for block in blocks:
-        if keyword.lower() in block["lines"][0]["spans"][0]["text"].lower():
-            subresult = []
-            for line in block["lines"]:
-                for span in line["spans"]:
-                    if keyword.lower() not in span["text"].lower():
-                        subresult.append(span["text"])
-            result.append("\\n".join(subresult))
-            y_list.append(block["bbox"][1])
-
-    result = remove_whitespaces(result)
-
-    return result, y_list
-
-def sort_and_fill(spans: list, n_courses_on_page: int, y_list: list) -> list:
-    
-    if n_courses_on_page == 2 and len(spans) == 1:
-        if y_list[0] < 450:
-            spans.insert(0, "")
-        else:
-            spans.append("")
-    elif n_courses_on_page == 2 and len(spans) == 2:
-        if y_list[0] < y_list[1]:
-            spans = spans[::-1]
-    elif len(spans) == 0:
-        while len(spans) != n_courses_on_page:
-            spans.append("")
-
-    return spans

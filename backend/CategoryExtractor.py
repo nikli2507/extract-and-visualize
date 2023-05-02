@@ -7,12 +7,22 @@ class CategoryExtractor():
         pass
 
     def extract(self, json_obj: json, n_courses_on_page: int) -> tuple:
-        
-        # every category has size 12
-        result = find_key_value_pairs(json_obj, 'size', 12.0)
+        """
+        Returns all categories of a given JSON object.
+
+        Parameters:
+        json_obj (json): The JSON object where the categories should be extracted.
+        n_courses_on_page (int): Defines the amount of categories which can be extracted.
+
+        Returns:
+        tuple: A tuple containing a list of strings of all extracted categories and a list of the y position of every category. 
+        """
 
         categories = []
         category_ys = []
+
+        # every category has size 12
+        result = find_key_value_pairs(json_obj, 'size', 12.0)
 
         # go through every size 12 element and build together the category names
         if result != []:
