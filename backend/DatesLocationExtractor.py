@@ -38,7 +38,7 @@ class DatesLocationExtractor():
             dates_x = 0
             dates_y = 0
             for block in blocks:
-                if "termine" in block["lines"][0]["spans"][0]["text"].lower():
+                if "termin" in block["lines"][0]["spans"][0]["text"].lower():
                     dates_x = block["bbox"][0]
                     dates_y = block["bbox"][1]
                     break
@@ -51,7 +51,8 @@ class DatesLocationExtractor():
                 if (block["bbox"][0] == dates_x) and (block["bbox"][1] >= dates_y) and not any(keyword in text for keyword in self.KEYWORDS):
                     for line in block["lines"]:
                         for span in line["spans"]:
-                            subresult.append(span["text"])
+                            if "termin" not in span["text"].lower():
+                                subresult.append(span["text"])
             if subresult != []:
                 subresult = "\\n".join(subresult)
                 dates_locations.append(subresult)

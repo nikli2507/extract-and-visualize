@@ -6,7 +6,7 @@ class GenericExtractor():
     def __init__(self):
         pass
 
-    def extract(self, json_obj: json, n_courses_on_page: int, keyword: str) -> list:
+    def extract(self, json_obj: json, n_courses_on_page: int, keywords: str) -> list:
         """
         Returns all texts below a given keyword (in the PDF representative) of the given JSON object.
 
@@ -23,12 +23,12 @@ class GenericExtractor():
         y_list = []
         for block in json_obj["blocks"]:
             # check if first span of block contains the keyword
-            if keyword.lower() in block["lines"][0]["spans"][0]["text"].lower():
+            if any(keyword.lower() in block["lines"][0]["spans"][0]["text"].lower() for keyword in keywords):
                 subresult = []
                 # add all text within the block to the result, excluding the keyword
                 for line in block["lines"]:
                     for span in line["spans"]:
-                        if keyword.lower() not in span["text"].lower() or ":" not in span["text"].lower():
+                        if not any(keyword.lower() in span["text"].lower() for keyword in keywords) or ":" not in span["text"].lower():
                             subresult.append(span["text"])
                 result.append("\\n".join(subresult))
                 y_list.append(block["bbox"][1])
