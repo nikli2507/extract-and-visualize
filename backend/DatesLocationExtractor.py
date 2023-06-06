@@ -54,7 +54,7 @@ class DatesLocationExtractor():
                             if "termin" not in span["text"].lower():
                                 subresult.append(span["text"])
             if subresult != []:
-                subresult = "\\n".join(subresult)
+                subresult = "<br>".join(subresult)
                 dates_locations.append(subresult)
                     
         # fill result list with empty entries if some date/location string was not found            

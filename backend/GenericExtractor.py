@@ -30,7 +30,7 @@ class GenericExtractor():
                     for span in line["spans"]:
                         if not any(keyword.lower() in span["text"].lower() for keyword in keywords) or ":" not in span["text"].lower():
                             subresult.append(span["text"])
-                result.append("\\n".join(subresult))
+                result.append("<br>".join(subresult))
                 y_list.append(block["bbox"][1])
 
         result = remove_whitespaces(result)

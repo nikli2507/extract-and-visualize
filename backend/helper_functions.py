@@ -6,7 +6,7 @@ def remove_whitespaces(str_list: list) -> list:
 
     # remove leading/following whitespaces and double whitespaces 
     for str in str_list:
-        edited_str_list.append(" ".join(str.split()).strip().lstrip("\\n"))
+        edited_str_list.append(" ".join(str.split()).strip().lstrip("<br>"))
 
     return edited_str_list
 
