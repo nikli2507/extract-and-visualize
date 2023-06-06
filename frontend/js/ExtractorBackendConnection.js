@@ -1,7 +1,18 @@
-fetch("http://127.0.0.1:5000/courses")
+if (localStorage.getItem("courses") === null) {
+  fetch("http://127.0.0.1:5000/courses")
   .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    printCourses(data);
+  .then(courses => {
+    localStorage.setItem("courses", JSON.stringify(courses));
+    printCourses(courses);
   })
   .catch(error => console.error(error));
+} else {
+  var courses = JSON.parse(localStorage.getItem("courses"));
+  var filters = [];
+  printCourses(courses)
+}
+
+
+
+
+

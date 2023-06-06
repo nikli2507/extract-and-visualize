@@ -1,4 +1,9 @@
 function printCourses(courses) {
+    
+    try {
+        let oldAccordion = document.getElementById("coursesAccordion");
+        document.body.removeChild(oldAccordion)
+    } catch (error) {}
 
     const accordion = document.createElement("div");
     accordion.classList.add("accordion")
@@ -21,7 +26,7 @@ function printCourses(courses) {
         button.setAttribute("aria-expanded", "false");
         button.setAttribute("aria-controls", "collapse"+i);
 
-        const heading = document.createTextNode(courses[i]);
+        const heading = document.createTextNode(courses[i].title);
 
         const collapse = document.createElement("div");
         collapse.setAttribute("id", "collapse"+i);
@@ -31,17 +36,15 @@ function printCourses(courses) {
 
         const accordionBody = document.createElement("div");
         accordionBody.classList.add("accordion-body");
-
-        const text = document.createTextNode("sample description");
         
+        const text = document.createTextNode(courses[i].description);
+
         button.appendChild(heading);
         h2.appendChild(button);
-        accordionItem.appendChild(h2);
-
+        accordionItem.appendChild(h2);   
         accordionBody.appendChild(text);
         collapse.appendChild(accordionBody);
         accordionItem.appendChild(collapse);
-
         accordion.appendChild(accordionItem);
 
     }

@@ -3,9 +3,7 @@ import sys
 from helper_functions import remove_whitespaces
 
 class TitleExtractor():
-
-    MAX_ORIGIN_Y_DIFFERENCE = 50
-
+    
     def __init__(self):
         pass
 

@@ -6,7 +6,6 @@ extractor = Extractor("courses.pdf")
 courses = extractor.extract()
 
 # connection to mongodb
-
 database = CoursesDatabase()
 database.clean()
 
