@@ -4,7 +4,17 @@ function applyFilters() {
     for (let i = 0; i < courses.length; i++) {
         let inFilters = true;
         for(let j = 0; j < filters.length; j++) {
-            if(!(courses[i][filters[j].property].toLowerCase().includes(filters[j].value))) {
+            if(filters[j].value === "Presence") {
+                if(courses[i][filters[j].property] === "") {
+                    inFilters = false;
+                    break;
+                }
+            } else if(filters[j].value === "Absence") {
+                if(!(courses[i][filters[j].property] === "")) {
+                    inFilters = false;
+                    break;
+                }
+            } else if(!(courses[i][filters[j].property].toLowerCase().includes(filters[j].value))) {
                 inFilters = false;
                 break;
             } 
@@ -14,31 +24,33 @@ function applyFilters() {
         }
     }
     let listContainer = document.getElementById("filterListContainer");
-    let row = document.getElementById("filterRow");
 
-    listContainer.appendChild(row);
-
+    let col = document.getElementById("filterCol");
     let containsFilters = false;
     for(let i=0; i<filters.length; i++) {
         if(filters[i].property != "title") {
             containsFilters = true;
             if(!filters[i].active) {
-                let col = document.createElement("div");
-                col.classList.add("col-sm-2");
                 let button = document.createElement("button");
                 button.classList.add("btn");
                 button.classList.add("btn-primary");
-                let text = document.createTextNode(filters[i].property + "=" + filters[i].value);
+                button.setAttribute("style", "margin-left: 10px;");
+                let text = document.createTextNode(filters[i].property + "=" + filters[i].value + " ☒");
                 button.appendChild(text);
                 col.appendChild(button);
-                row.appendChild(col);
                 filters[i].active = true;
 
                 button.addEventListener("click", function() {
                     button.remove();
-                    col.remove();
-                    filters.splice(i, 1);
-                    console.log(filters);
+                    propVal = button.textContent.split("=");
+                    property = propVal[0];
+                    value = propVal[1].split(" ")[0];
+                    for(let i=0; i<filters.length; i++) {
+                        if(filters[i].property === property && filters[i].value === value) {
+                            filters.splice(i, 1);
+                            break;
+                        }
+                    }
                     applyFilters();
                 });
             }  

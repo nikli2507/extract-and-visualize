@@ -25,7 +25,10 @@ class TitleExtractor():
             if block["lines"][0]["spans"][0]["size"] == 17:
                 title = ""
                 for line in block["lines"]:
-                    title = title + line["spans"][0]["text"] + " "
+                    if not "termin" in line["spans"][0]["text"].lower():
+                        title = title + line["spans"][0]["text"] + " "
+                    else:
+                        break
                 titles.append(title)
                 title_coords.append((block["bbox"][0], block["bbox"][1]))
 

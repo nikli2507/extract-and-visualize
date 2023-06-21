@@ -3,7 +3,7 @@ import sys
 
 class DatesLocationExtractor():
 
-    KEYWORDS = ["dauer", "uhrzeit", "seminarbeitrag", "trainer", "mitzubringen"]
+    KEYWORDS = ["dauer", "uhrzeit", "seminarbeitrag", "trainer", "mitzubringen", "zusatzinformation", "hinweis"]
 
     def __init__(self):
         pass
