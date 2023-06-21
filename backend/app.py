@@ -29,7 +29,8 @@ for course in courses:
         'what_to_bring': course.what_to_bring,
         'category': course.category,
         'min_age': course.min_age,
-        'duration': course.duration
+        'duration': course.duration,
+        'duration_as_days': course.duration_as_days
     })
 
 print("Querying all courses...")

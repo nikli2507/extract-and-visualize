@@ -1,4 +1,5 @@
 import fitz
+import re
 
 def remove_whitespaces(str_list: list) -> list:
     
@@ -18,3 +19,37 @@ def save_page_as_file(page_n: int):
     doc = fitz.open("courses.pdf")
     dict = doc[page_n].get_text("dict")
     save_dict_as_file(dict, page_n)
+
+def durations_as_days(durations: list) -> list:
+    durations_days = []
+    days_conversion = {
+        'Tag': 8,
+        'Tage': 8,
+        'Stunden': 1,
+        'Minuten': 1/60
+    }
+    for duration in durations:
+        if duration != "":
+            duration = re.sub(r'\(.*?\)|oder.*', '', duration)
+            periods = re.findall(r'(\d+(?:,\d+)?)\s*(\w+)', duration)
+            
+            for period in periods:
+                duration = float(period[0].replace(',', '.'))
+                unit = period[1]
+                
+                if unit in days_conversion:
+                    hours = duration * days_conversion[unit]
+                    days = hours / 8
+                    durations_days.append(days)
+        else:
+            durations_days.append(0.0)
+
+        if len(durations_days) == 0:
+            durations_days = [0.0 for _ in range(len(durations))]
+
+    return durations_days        
+
+
+    
+
+
