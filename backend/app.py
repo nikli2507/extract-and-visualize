@@ -30,7 +30,8 @@ for course in courses:
         'category': course.category,
         'min_age': course.min_age,
         'duration': course.duration,
-        'duration_as_days': course.duration_as_days
+        'duration_as_days': course.duration_as_days,
+        'dates_locations_list': course.dates_locations_list
     })
 
 print("Querying all courses...")

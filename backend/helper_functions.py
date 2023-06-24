@@ -49,7 +49,50 @@ def durations_as_days(durations: list) -> list:
 
     return durations_days        
 
+def remove_text_after_keywords(string, keywords):
+    pattern = r'(' + '|'.join(re.escape(keyword) for keyword in keywords) + r')\b(.*)'
+    result = re.sub(pattern, r'\1', string, flags=re.IGNORECASE)
+    return result.strip()
 
-    
+def contains_date(string):
+    date_pattern = r"\d{2}\.\d{2}\.\d{4}" 
+    return bool(re.search(date_pattern, string))
 
+def remove_unnecessary_info(string):
+    pattern = r'(Modul|Block) \d+:'
+    result = re.sub(pattern, "", string)
+    return result
 
+def delete_chars_before_number(string):
+    match = re.search(r'\d', string)
+    if match:
+        index = match.start()
+        string = string[index:]
+    return string
+
+def get_date_location_list(dates_locations):
+
+    result = []
+
+    for dates_location in dates_locations:
+        string = remove_unnecessary_info(dates_location)
+        string = delete_chars_before_number(string)
+        string = remove_text_after_keywords(string, ["dauer", "uhrzeit", "seminarbeitrag", "trainer", "mitzubringen", "zusatzinformation", "hinweis", "mindesalter"])
+        
+        dates_list = []
+        locations_list = []
+        
+        date_list = []
+        for substring in string.split("<br>"):
+            if not any(char.isalnum() for char in substring):
+                continue
+            if contains_date(substring):
+                date_list.append(substring.strip())
+            elif len(date_list) > 0 and not substring.strip().startswith("von") and not substring.strip()[0].isdigit():
+                locations_list.append(substring.strip())
+                dates_list.append(date_list)
+                date_list = []
+
+        result.append((dates_list, locations_list))
+
+    return result
