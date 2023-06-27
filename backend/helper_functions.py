@@ -77,7 +77,7 @@ def get_date_location_list(dates_locations):
     for dates_location in dates_locations:
         string = remove_unnecessary_info(dates_location)
         string = delete_chars_before_number(string)
-        string = remove_text_after_keywords(string, ["dauer", "uhrzeit", "seminarbeitrag", "trainer", "mitzubringen", "zusatzinformation", "hinweis", "mindesalter"])
+        string = remove_text_after_keywords(string, ["dauer", "uhrzeit", "seminarbeitrag", "trainer", "mitzubringen", "zusatzinformation", "hinweis", "mindestalter"])
         
         dates_list = []
         locations_list = []

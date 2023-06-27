@@ -1,6 +1,7 @@
 
 function applyFilters() {
     let filteredCourses = [];
+    var courses = JSON.parse(localStorage.getItem("courses"));
     for (let i = 0; i < courses.length; i++) {
         let inFilters = true;
         for(let j = 0; j < filters.length; j++) {
@@ -62,6 +63,7 @@ function applyFilters() {
         listContainer.style.display = "none";
     }
     printCourses(filteredCourses);
+    return filteredCourses;
 }
 
 var buttonPropertyMap = {

@@ -70,21 +70,36 @@ document.addEventListener("DOMContentLoaded", function() {
         var expandedContent = document.getElementById("expandedContent");
         expandedContent.classList.remove("show");
     }); 
-    accordion.addEventListener("click", function(event) {
-        if (event.target.classList.contains("deselectButton")) {
-          let accordionItem = event.target.closest('.accordion-item');
-          let index = accordionItem.getAttribute("index");
-        
-          if(event.target.innerHTML === "Deselect") {
-            courses[index].selected = false;
-          } else {
-            courses[index].selected = true;
-          }
-  
-          localStorage.setItem("courses", JSON.stringify(courses));
-          printCourses(courses);
+      var selButton = document.getElementById("selButton");
+      selButton.addEventListener("click", function(event) {
+        populateCourses();
+      }); 
+      var modalSaveBtn = document.getElementById("modalSaveBtn");
+      modalSaveBtn.addEventListener("click", function(event) {
 
+        var checkboxContainer = document.getElementById("courseForm");
+        var checkboxes = checkboxContainer.querySelectorAll("input");
+        var labels = checkboxContainer.querySelectorAll("label");
+        var courses = JSON.parse(localStorage.getItem("courses"));
+
+        for(var i = 0; i < checkboxes.length; i++) {
+          var checkbox = checkboxes[i];
+          var label = labels[i];
+
+          for (var j = 0; j < courses.length; j++) {
+            if (courses[j].title === label.textContent) {
+              if(checkbox.checked) {
+                courses[j].selected = true;
+              } else {
+                courses[j].selected = false;
+              }
+            }
+          }
 
         }
-      });
+
+        localStorage.setItem("courses", JSON.stringify(courses));
+        printCourses(applyFilters());
+
+      }); 
 });

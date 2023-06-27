@@ -70,21 +70,10 @@ function printCourses(courses) {
         collapse.appendChild(accordionBody);
         accordionItem.appendChild(collapse);
 
-        // deselect button
-        accordionBody.style.position = "relative";
-        const deselectButton = document.createElement("button");
-        deselectButton.classList.add("btn", "btn-primary", "close-button", "deselectButton");
-        deselectButton.style.position = "absolute"; 
-        deselectButton.style.top = "10px"; 
-        deselectButton.style.right = "10px"; 
-        accordionBody.appendChild(deselectButton);
-
         if (courses[i].selected) {
             selectedCourses.push(accordionItem);
-            deselectButton.innerHTML = "Deselect";
         } else {
             deselectedCourses.push(accordionItem);
-            deselectButton.innerHTML = "Select";
         }
 
     }

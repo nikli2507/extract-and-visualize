@@ -1,8 +1,10 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from CoursesDatabase import *
 from Extractor import Extractor
 
 app = Flask(__name__)
+CORS(app)
 print("Extracting all courses from PDF...")
 extractor = Extractor("courses.pdf")
 courses = extractor.extract()
