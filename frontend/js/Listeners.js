@@ -102,4 +102,20 @@ document.addEventListener("DOMContentLoaded", function() {
         printCourses(applyFilters());
 
       }); 
+      var selAllButton = document.getElementById("selectAll");
+      selAllButton.addEventListener("click", function(event) {
+
+        var checkboxContainer = document.getElementById("courseForm");
+        var checkboxes = checkboxContainer.querySelectorAll("input");
+
+        var selected = checkboxes[0].checked;
+        for(var i = 0; i < checkboxes.length; i++) {
+          if(selected) {
+            checkboxes[i].checked = false;
+          } else {
+            checkboxes[i].checked = true;
+          }
+        }
+
+      }); 
 });

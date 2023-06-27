@@ -20,7 +20,15 @@
     <script src="js/helperFunctions.js"></script>
 </head>
 <body>
-    <div w3-include-html="navbar.html"></div><script> includeHTML(); </script>
+    <div w3-include-html="navbar.html"></div>
+    <script> 
+      includeHTML();
+      document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("searchInput").style.display = "none";
+        document.getElementById("expandButton").style.display = "none";
+        document.getElementById("selButton").style.display = "none";
+      });
+    </script>
     <div class="charts">
         <div class="row mb-4">
           <div class="col-sm-6">
