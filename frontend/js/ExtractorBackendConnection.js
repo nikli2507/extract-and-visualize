@@ -1,5 +1,5 @@
 if (localStorage.getItem("courses") === null) {
-  fetch("http://127.0.0.1:5000/courses")
+  fetch("courses.json")
   .then(response => response.json())
   .then(courses => {
     courses.forEach(function(course) {
@@ -9,6 +9,9 @@ if (localStorage.getItem("courses") === null) {
     printCourses(courses);
   })
   .catch(error => console.error(error));
+  var courses = 
+  localStorage.setItem("courses", JSON.stringify(courses));
+  printCourses(courses);
 } else {
   var courses = JSON.parse(localStorage.getItem("courses"));
   var filters = [];
