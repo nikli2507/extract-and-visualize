@@ -1,4 +1,3 @@
-import fitz
 from Course import Course
 from TitleExtractor import TitleExtractor
 from CategoryExtractor import CategoryExtractor
@@ -9,9 +8,9 @@ from helper_functions import durations_as_days
 from helper_functions import get_date_location_list
 
 class Extractor():
-    
-    def __init__(self, file_path: str):
-        self.doc = fitz.open(file_path)
+     
+    def __init__(self, doc):
+        self.doc = doc
 
     def extract(self) -> list:
         """

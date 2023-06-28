@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {    
+document.addEventListener("DOMContentLoaded", function() {   
     var searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", function(event) {
         let searchText = searchInput.value;

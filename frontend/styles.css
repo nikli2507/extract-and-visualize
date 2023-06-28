@@ -1,0 +1,17 @@
+.index #searchInput,
+.index #expandButton,
+.index #selButton {
+  display: block;
+}
+
+.charts #searchInput,
+.charts #expandButton,
+.charts #selButton {
+  display: none;
+}
+
+.upload #searchInput,
+.upload #expandButton,
+.upload #selButton {
+  display: none;
+}
