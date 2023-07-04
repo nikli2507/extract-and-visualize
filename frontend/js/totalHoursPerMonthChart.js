@@ -11,10 +11,10 @@ for (const course of JSON.parse(localStorage.getItem("courses"))) {
       for(let date_i=0; date_i<course.dates_locations_list[0][location_i].length; date_i++) {
         start_end = formatDateTime(course.dates_locations_list[0][location_i][date_i], course.time);
         
-        const start_time = new Date(start_end.start);
-        const end_time = new Date(start_end.end);
+        const startTime = new Date(start_end.start);
+        const endTime = new Date(start_end.end);
 
-        const hoursPerMonth = calculateHoursPerMonth(start_time, end_time);
+        const hoursPerMonth = calculateHours(startTime, endTime);
 
         for (let i = 0; i < hoursPerMonthData.length; i++) {
           hoursPerMonthData[i][1] += hoursPerMonth[i];
@@ -26,30 +26,17 @@ for (const course of JSON.parse(localStorage.getItem("courses"))) {
 }
 
 Highcharts.chart('hoursChartContainer', {
-  chart: {
-    type: 'column' 
-  },
-  title: {
-    text: 'Total Course Hours per Month'
-  },
-  xAxis: {
-    type: 'category',
-    title: {
-      text: 'Month'
-    }
-  },
-  yAxis: {
-    title: {
-      text: 'n Hours'
-    }
-  },
+  chart: { type: 'column' },
+  title: { text: 'Total Course Hours per Month' },
+  xAxis: { type: 'category', title: { text: 'Month' }},
+  yAxis: { title: { text: 'n Hours' }},
   series: [{
     name: 'Hours per Month',
     data: hoursPerMonthData
   }]
 });
 
-function calculateHoursPerMonth(startDate, endDate) {
+function calculateHours(startDate, endDate) {
   const startHour = startDate.getHours();
   const startMinute = startDate.getMinutes();
   const endHour = endDate.getHours();

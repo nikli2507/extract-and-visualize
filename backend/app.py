@@ -3,11 +3,12 @@ from flask_cors import CORS
 from CoursesDatabase import *
 from Extractor import Extractor
 import fitz
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-def initDB(doc):
+def extractCoursesAndPushToDB(doc):
     print("Extracting all courses from PDF...")
 
     extractor = Extractor(doc)
@@ -16,7 +17,6 @@ def initDB(doc):
     if len(courses) == 0:
         return []
 
-    # connection to mongodb
     print("Connecting to MongoDB...")
     database = CoursesDatabase()
     print("Cleaning database...")
@@ -39,7 +39,6 @@ def initDB(doc):
             'category': course.category,
             'min_age': course.min_age,
             'duration': course.duration,
-            'duration_as_days': course.duration_as_days,
             'dates_locations_list': course.dates_locations_list
         })
 
@@ -53,7 +52,7 @@ def initDB(doc):
     return courses
 
 doc = fitz.open("courses.pdf")
-courses = initDB(doc)
+courses = extractCoursesAndPushToDB(doc)
 
 @app.route('/testconn', methods=['GET'])
 def test_conn():
@@ -74,21 +73,24 @@ def get_course(index: int):
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    if 'pdfFile' in request.files:
-        pdf_file = request.files['pdfFile']
+    # Check if a file was included in the request
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file uploaded'}), 400
 
-        pdf_file.save('uploaded_file.pdf')
+    file = request.files['file']
 
-        doc = fitz.open('uploaded_file.pdf')
-        courses = initDB(doc)
+    # Check if the file is a PDF
+    if file.filename.endswith('.pdf'):
+        doc = fitz.open(stream=file.read(), filetype="pdf")
+        courses = extractCoursesAndPushToDB(doc)
 
         if(len(courses) > 0):
             return jsonify(courses), 200
-        
-        return jsonify({"error": "No courses couldn't be extracted from the file!"}), 400
+        else:
+            return jsonify({"error": "No courses couldn't be extracted from the file!"}), 400
+    else:
+        return jsonify({"error": "Invalid file format. Only PDF files are allowed."}), 400
 
-    return jsonify({"error": "The uploaded PDF file is not valid!"}), 400
-
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(port=int(os.environ.get("PORT", 8080)),host='0.0.0.0',debug=True)
     

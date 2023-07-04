@@ -1,7 +1,6 @@
 function formatDateTime(date, time) {
     var isoDate = formatDate(date); 
   
-    // Default start and end times
     var startTime = '00:00:00';
     var endTime = '23:59:59';
   

@@ -78,12 +78,10 @@ function printCourses(courses) {
 
     }
 
-    // Append selected courses first
     selectedCourses.forEach((accordionItem) => {
         accordion.appendChild(accordionItem);
     });
 
-    // Append deselected courses with grey background
     deselectedCourses.forEach((accordionItem) => {
         accordionItem.style.backgroundColor = "#f2f2f2"; 
         accordionItem.querySelector(".accordion-button").style.backgroundColor = "#f2f2f2";

@@ -26,7 +26,6 @@ class DatesLocationExtractor():
         category2_y = category_ys[1] if n_courses_on_page == 2 else sys.float_info.max  
 
         # split all blocks into two sections for every single course, the categories y coordinate is a good point to split
-        # TODO: check if this is also possible with the titles y coordinate
         cat1_blocks = [block for block in json_obj["blocks"] if block["bbox"][1] > category1_y and block["bbox"][1] < category2_y]
         cat2_blocks = [block for block in json_obj["blocks"] if block["bbox"][1] > category2_y]
 

@@ -16,25 +16,12 @@ for (const course of JSON.parse(localStorage.getItem("courses"))) {
 }
 
 Highcharts.chart('categoryChartContainer', {
-chart: {
-    type: 'column'
-    },
-    title: {
-    text: 'Courses per Category'
-    },
-    xAxis: {
-    type: 'category',
-    title: {
-        text: 'Category'
-    }
-    },
-    yAxis: {
-    title: {
-        text: 'n Courses'
-    }
-    },
-    series: [{
-    name: 'n Categories',
-    data: categoryData
-    }]
-});
+  chart: { type: 'column' },
+      title: { text: 'Courses per Category' },
+      xAxis: { type: 'category', title: { text: 'Category' }},
+      yAxis: { title: { text: 'n Courses' }},
+      series: [{
+          name: 'n Categories',
+          data: categoryData
+      }]
+  });

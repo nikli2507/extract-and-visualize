@@ -1,5 +1,5 @@
 if (localStorage.getItem("courses") === null) {
-  fetch("courses.json")
+  fetch("https://extract-visualize-backend-p4pfvqh5nq-uc.a.run.app/courses")
   .then(response => response.json())
   .then(courses => {
     courses.forEach(function(course) {

@@ -31,38 +31,52 @@
     </div>
 
     <script>
-        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        document.getElementById("uploadForm").addEventListener("submit", function (event) {
             event.preventDefault();
             
-            var fileInput = document.getElementById('pdfFile');
-            var file = fileInput.files[0];
-            if (file) {
-                var formData = new FormData();
-                formData.append('pdfFile', file);
-                
-                fetch('http://127.0.0.1:5000/upload', {
-                method: 'POST',
-                body: formData
-                })
-                .then(function(response) {
-                    if (response.ok) {
-                        return response.json().then(function(data) {
-                            alert("Updated courses successfully!");
-                        });
-                    } 
-                });
+            if (this.classList.contains("uploading")) {
+                alert("Upload already in progress");
+                return;
             }
-            fetch("http://127.0.0.1:5000/courses")
-            .then(response => response.json())
-            .then(courses => {
-                delete process.env.courses;
-                courses.forEach(function(course) {
-                course.selected = true;
-                });
-                localStorage.setItem("courses", JSON.stringify(courses));
-                printCourses(courses);
+
+            // Get the uploaded file
+            const fileInput = document.getElementById('pdfFile');
+            const file = fileInput.files[0];
+
+            // Create a FormData object and append the file to it
+            const formData = new FormData();
+            formData.append("file", file);
+
+            this.classList.add("uploading");
+
+            fetch("https://extract-visualize-backend-p4pfvqh5nq-uc.a.run.app/upload", {
+                method: "POST",
+                body: formData
             })
-            .catch(error => console.error(error));
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.json().then(data => {
+                        throw new Error(data.error);
+                    });
+                }
+            })
+            .then(data => {
+                delete window.courses;
+                data.forEach(function(course) {
+                    course.selected = true;
+                });
+                localStorage.setItem("courses", JSON.stringify(data));
+                alert("Successfully updated courses!");
+            })
+            .catch(error => {
+                console.error(error);
+                alert(error.message);
+            })
+            .finally(() => {
+                this.classList.remove('uploading');
+            });
         });
     </script>
 </body>
