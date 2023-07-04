@@ -33,11 +33,6 @@
     <script>
         document.getElementById("uploadForm").addEventListener("submit", function (event) {
             event.preventDefault();
-            
-            if (this.classList.contains("uploading")) {
-                alert("Upload already in progress");
-                return;
-            }
 
             // Get the uploaded file
             const fileInput = document.getElementById('pdfFile');
@@ -47,7 +42,7 @@
             const formData = new FormData();
             formData.append("file", file);
 
-            this.classList.add("uploading");
+            this.textContent = "Uploading... do not leave this page!";
 
             fetch("https://extract-visualize-backend-p4pfvqh5nq-uc.a.run.app/upload", {
                 method: "POST",
@@ -68,15 +63,12 @@
                     course.selected = true;
                 });
                 localStorage.setItem("courses", JSON.stringify(data));
-                alert("Successfully updated courses!");
+                this.textContent = "Successfully updated courses!";
             })
             .catch(error => {
                 console.error(error);
-                alert(error.message);
+                this.textContent = "Error: " + error.message + " Please reload the page.";
             })
-            .finally(() => {
-                this.classList.remove('uploading');
-            });
         });
     </script>
 </body>
