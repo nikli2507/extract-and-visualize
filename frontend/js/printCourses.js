@@ -42,28 +42,28 @@ function printCourses(courses) {
         h2.appendChild(button);
         accordionItem.appendChild(h2);
 
-        let body = `${course.category ? course.category : "couldn't be extracted"} <br><br>
-                    ${course.description ? course.description : "couldn't be extracted"} <br><br>
+        let body = `${course.category ? course.category : "not present in document"}   -   <i>Extracted from page ${course.page}</i><br><br>
+                    ${course.description ? course.description : "not present in document"} <br><br>
                     <h5>Inhalt</h5>
-                    ${course.content ? course.content : "couldn't be extracted"} <br><br>
+                    ${course.content ? course.content : "not present in document"} <br><br>
                     <h5>Voraussetzungen:</h5>
-                    ${course.prerequisites ? course.prerequisites : "couldn't be extracted"} <br><br>
+                    ${course.prerequisites ? course.prerequisites : "not present in document"} <br><br>
                     <h5>Zielgruppe:</h5>
-                    ${course.target_group ? course.target_group : "couldn't be extracted"} <br><br>
+                    ${course.target_group ? course.target_group : "not present in document"} <br><br>
                     <h5>Kosten:</h5>
-                    ${course.cost ? course.cost : "couldn't be extracted"} <br><br>
+                    ${course.cost ? course.cost : "not present in document"} <br><br>
                     <h5>Trainer:</h5>
-                    ${course.trainer ? course.trainer : "couldn't be extracted"} <br><br>
+                    ${course.trainer ? course.trainer : "not present in document"} <br><br>
                     <h5>Mitzubringen:</h5>
-                    ${course.what_to_bring ? course.what_to_bring : "couldn't be extracted"} <br><br>
+                    ${course.what_to_bring ? course.what_to_bring : "not present in document"} <br><br>
                     <h5>Datum und Ort:</h5>
-                    ${course.dates_location ? course.dates_location : "couldn't be extracted"} <br><br>
+                    ${course.dates_location ? course.dates_location : "not present in document"} <br><br>
                     <h5>Dauer:</h5>
-                    ${course.duration ? course.duration : "couldn't be extracted"} <br><br>
+                    ${course.duration ? course.duration : "not present in document"} <br><br>
                     <h5>Mindestalter:</h5>
-                    ${course.min_age ? course.min_age : "couldn't be extracted"} <br><br>
+                    ${course.min_age ? course.min_age : "not present in document"} <br><br>
                     <h5>Zeit:</h5>
-                    ${course.time ? course.time : "couldn't be extracted"} <br><br>`;
+                    ${course.time ? course.time : "not present in document"} <br><br>`;
 
         accordionBody.innerHTML = body;
 

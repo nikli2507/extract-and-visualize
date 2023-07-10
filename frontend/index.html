@@ -19,6 +19,30 @@
         <script src="js/listeners.js"></script>
         <script src="js/filter.js"></script>
         <script src="js/courseSelection.js"></script>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">General Information about this Application</h5>
+                        <button type="button" class="close" onclick="closeModal()">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This web application was created within the scope of my (Niklas Furtlehner) bachelor thesis in the bachelors
+                            degree of Computer Science at the Johannes Kepler University Linz. The corresponding lecture is PR 
+                            Projektpraktikum 351.067.</p>
+                        <p>The application extracts courses from the course program of the Red Cross of 2023 and then displays
+                            them as a list. The user has the possibility to filter and search the list. The application also
+                            displays charts representing the course data and provides a PDF upload option. 
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
 

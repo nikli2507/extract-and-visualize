@@ -8,6 +8,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+print("Connecting to MongoDB...")
+database = CoursesDatabase()
+
 def extractCoursesAndPushToDB(doc):
     print("Extracting all courses from PDF...")
 
@@ -17,8 +20,6 @@ def extractCoursesAndPushToDB(doc):
     if len(courses) == 0:
         return []
 
-    print("Connecting to MongoDB...")
-    database = CoursesDatabase()
     print("Cleaning database...")
     database.clean()
 
@@ -39,7 +40,8 @@ def extractCoursesAndPushToDB(doc):
             'category': course.category,
             'min_age': course.min_age,
             'duration': course.duration,
-            'dates_locations_list': course.dates_locations_list
+            'dates_locations_list': course.dates_locations_list,
+            'page': course.page
         })
 
     print("Querying all courses...")

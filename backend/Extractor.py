@@ -52,7 +52,7 @@ class Extractor():
                     raise ValueError()
                        
                 for j in range(len(titles)):
-                    courses.append(Course(titles[j], descriptions[j], target_groups[j], contents[j], prerequisites[j], dates_locations[j], times[j], costs[j], trainers[j], additional_infos[j], what_to_bring[j], categories[j], min_ages[j], durations[j], dates_locations_list[j]))
+                    courses.append(Course(titles[j], descriptions[j], target_groups[j], contents[j], prerequisites[j], dates_locations[j], times[j], costs[j], trainers[j], additional_infos[j], what_to_bring[j], categories[j], min_ages[j], durations[j], dates_locations_list[j], i+1))
 
                 if i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 28, 29, 30, 43, 44, 45, 46, 56, 57, 63, 64, 65, 72, 73, 74, 85, 86, 87, 94, 95, 98, 99, 108, 109, 113, 114, 115, 117, 120, 121, 124, 125, 128, 129, 130, 131]:
                     print(f" - Extracted course on page {i}, but should not!")
