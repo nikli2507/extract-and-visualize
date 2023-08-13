@@ -29,7 +29,7 @@ Highcharts.chart('hoursChartContainer', {
   chart: { type: 'column' },
   title: { text: 'Total Course Hours per Month' },
   xAxis: { type: 'category', title: { text: 'Month' }},
-  yAxis: { title: { text: 'n Hours' }},
+  yAxis: { title: { text: 'Hours' }},
   series: [{
     name: 'Hours per Month',
     data: hoursPerMonthData

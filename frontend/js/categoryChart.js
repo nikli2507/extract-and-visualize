@@ -19,9 +19,9 @@ Highcharts.chart('categoryChartContainer', {
   chart: { type: 'column' },
       title: { text: 'Courses per Category' },
       xAxis: { type: 'category', title: { text: 'Category' }},
-      yAxis: { title: { text: 'n Courses' }},
+      yAxis: { title: { text: 'Courses' }},
       series: [{
-          name: 'n Categories',
+          name: 'Categories',
           data: categoryData
       }]
   });
